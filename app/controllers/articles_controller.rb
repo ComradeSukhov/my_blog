@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    Tagging.where("article_id = '#{params[:id]}'").each{ |tagging| tagging.destroy }
     @article = Article.find(params[:id])
     @article.destroy
 

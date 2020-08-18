@@ -9,8 +9,8 @@ class TagsController < ApplicationController
   end
 
   def destroy
+    Tagging.where("tag_id = '#{params[:id]}'").each{ |tagging| tagging.destroy }
     @tag = Tag.find(params[:id])
-    Tagging.all.select { |tagging| tagging.tag_id == @tag.id }[0].destroy
     @tag.destroy
 
     flash.notice = "Tag '#{@tag.name}' Deleted!"
